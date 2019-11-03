@@ -1,0 +1,25 @@
+{
+  "name": "@keystonejs/example-projects-starter",
+  "description": "An example KeystoneJS project with a User list and Authentication.",
+  "private": true,
+  "version": "5.0.0",
+  "author": "The KeystoneJS Development Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=8.4.0"
+  },
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development DISABLE_LOGGING=true knex migrate:up && keystone dev",
+    "build": "cross-env NODE_ENV=production keystone build",
+    "start": "cross-env NODE_ENV=production knex migrate:up && keystone start"
+  },
+  "dependencies": {
+    "@keystonejs/adapter-knex": "~5.0.1",
+    "@keystonejs/app-admin-ui": "^5.0.0",
+    "@keystonejs/app-graphql": "^5.0.0",
+    "@keystonejs/auth-password": "^5.0.0",
+    "@keystonejs/fields": "^5.0.0",
+    "@keystonejs/keystone": "^5.0.0",
+    "cross-env": "^5.2.0"
+  }
+}

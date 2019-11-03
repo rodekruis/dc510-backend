@@ -1,0 +1,48 @@
+version: "3.2"
+
+services:
+  api:
+    build:
+      context: .
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: /usr/local/wait-for-it.sh db:5432 -- yarn dev
+    env_file:
+      - .env
+    ports:
+      - 3000:3000
+    networks:
+      - webnet
+    depends_on:
+      - db
+
+  db:
+    image: postgres
+    volumes:
+      - ./init-user-db.sh/:/docker-entrypoint-initdb.d/init-user-db.sh
+      - ./db_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    restart: always
+    networks:
+      - webnet
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+
+  metabase:
+    image: metabase/metabase
+    depends_on:
+      - db
+    ports:
+      - 5000:3000
+    networks:
+      - webnet
+    volumes:
+      - ./metabase_data:/metabase-data
+    environment:
+      MB_DB_FILE: /metabase-data/metabase.db
+
+networks:
+  webnet:

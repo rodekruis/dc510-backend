@@ -1,0 +1,4 @@
+.env
+metabase_data
+db_data
+node_modules
