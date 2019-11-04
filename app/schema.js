@@ -4,11 +4,11 @@ const {
   Checkbox,
   Password,
   Relationship,
-  DateTimeUtc,
   Location,
   Url
 } = require('@keystonejs/fields');
 const { Wysiwyg } = require('@keystonejs/fields-wysiwyg-tinymce');
+const { DateTimeUtc } = require('@keystonejs/fields-datetime-utc');
 
 // Access control functions
 const userIsAdmin = ({ authentication: { item: user } }) =>
