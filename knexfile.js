@@ -1,4 +1,4 @@
 module.exports = {
   client: 'pg',
-  connection: process.env.DB_URI
+  connection: process.env.DATABASE_URL
 };

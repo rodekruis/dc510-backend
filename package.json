@@ -19,7 +19,29 @@
     "@keystonejs/app-graphql": "^5.0.0",
     "@keystonejs/auth-password": "^5.0.0",
     "@keystonejs/fields": "^5.0.0",
+    "@keystonejs/fields-wysiwyg-tinymce": "~5.0.0",
     "@keystonejs/keystone": "^5.0.0",
-    "cross-env": "^5.2.0"
+    "cross-env": "^5.2.0",
+    "dotenv": "~8.2.0",
+    "husky": "~3.0.9",
+    "lint-staged": "~9.4.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "~10.0.3",
+    "eslint": "~6.6.0",
+    "eslint-config-prettier": "~6.5.0",
+    "eslint-plugin-prettier": "~3.1.1",
+    "prettier": "~1.18.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --ignore-pattern '!.eslintrc.js' --fix",
+      "git add"
+    ]
   }
 }
