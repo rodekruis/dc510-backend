@@ -21,13 +21,15 @@ const PROJECT_NAME = 'dc510';
 // create keystone app
 const keystone = new Keystone({
   name: PROJECT_NAME,
+  cookieSecret: process.env.COOKIE_SECRET,
+  onConnect: initializeData,
+  secureCookies: false, // @todo enable this before going to production
   adapter: new Adapter({
     knexOptions: {
       client: 'postgres',
       connection: process.env.DATABASE_URL
     }
-  }),
-  onConnect: initializeData
+  })
 });
 
 // create our app entities / data structure
