@@ -121,7 +121,7 @@ exports.Recording = {
     location: {
       type: Location,
       isRequired: true,
-      googleMapsKey: 'AIzaSyAkhezTmdeln_bfDM6uQxc-6E66PHbDPMM'
+      googleMapsKey: process.env.GOOGLE_MAPS_KEY
     },
     activity: {
       type: Relationship,
