@@ -10,8 +10,8 @@
   },
   "scripts": {
     "dev": "cross-env NODE_ENV=development DISABLE_LOGGING=true knex migrate:up && keystone dev",
-    "build": "cross-env NODE_ENV=production keystone build",
-    "start": "cross-env NODE_ENV=production knex migrate:up && keystone start"
+    "build": "keystone build",
+    "start": "knex migrate:up && keystone start"
   },
   "dependencies": {
     "@keystonejs/adapter-knex": "~5.0.1",
