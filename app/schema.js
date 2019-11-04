@@ -1,10 +1,10 @@
 const {
+  Integer,
   Text,
   Checkbox,
   Password,
-  Select,
   Relationship,
-  DateTime,
+  DateTimeUtc,
   Location,
   Url
 } = require('@keystonejs/fields');
@@ -66,18 +66,8 @@ exports.ActivityType = {
 
 exports.ActivitySeverity = {
   fields: {
-    code: {
-      type: Select,
-      isUnique: true,
-      isRequired: true,
-      options: [
-        { value: 'NONE', label: 'None' },
-        { value: 'MILD', label: 'Mild' },
-        { value: 'HIGH', label: 'High' },
-        { value: 'SEVERE', label: 'Severe' }
-      ],
-      schemaDoc: 'Severity of activity ranging from 0 to 5'
-    }
+    name: { type: Text, isRequired: true },
+    code: { type: Integer, isRequired: true }
     // image_url: { type: AzureImage }
     // @todo write an adapter based on this
     // https://github.com/keystonejs/keystone/blob/master/packages/file-adapters/lib/cloudinary.js
@@ -107,11 +97,6 @@ exports.Activity = {
       ref: 'ActivityType',
       isRequired: true
     },
-    severity: {
-      type: Relationship,
-      ref: 'ActivitySeverity',
-      isRequired: true
-    },
     region: {
       type: Relationship,
       ref: 'Region',
@@ -122,8 +107,7 @@ exports.Activity = {
       ref: 'User',
       isRequired: true
     },
-    complete: { type: Checkbox },
-    createdAt: { type: DateTime, ...defaultDate }
+    createdAt: { type: DateTimeUtc, ...defaultDate }
   }
 };
 
@@ -133,7 +117,7 @@ exports.Activity = {
 
 exports.Recording = {
   fields: {
-    createdAt: { type: DateTime, ...defaultDate },
+    createdAt: { type: DateTimeUtc, ...defaultDate },
     location: {
       type: Location,
       isRequired: true,
@@ -154,6 +138,7 @@ exports.Recording = {
       ref: 'User',
       isRequired: true
     },
-    media_url: { type: Url, isRequired: true }
+    media_url: { type: Url, isRequired: true },
+    complete: { type: Checkbox }
   }
 };

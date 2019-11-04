@@ -47,9 +47,9 @@ const initialData = {
     { name: 'Damage Assessment', code: 'DA', description: 'Damange assessment' }
   ],
   ActivitySeverity: [
-    { code: 'NONE' },
-    { code: 'MILD' },
-    { code: 'HIGH' },
-    { code: 'SEVERE' }
+    { name: 'None', code: 1 },
+    { name: 'Mild', code: 2 },
+    { name: 'High', code: 3 },
+    { name: 'Severe', code: 4 }
   ]
 };
