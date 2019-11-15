@@ -24,7 +24,7 @@ const keystone = new Keystone({
   name: PROJECT_NAME,
   cookieSecret: process.env.COOKIE_SECRET,
   onConnect: initializeData,
-  secureCookies: false, // @todo enable this before going to production
+  secureCookies: isProduction,
   adapter: new Adapter({
     knexOptions: {
       client: 'postgres',
@@ -49,7 +49,8 @@ const authStrategy = keystone.createAuthStrategy({
 // disable playground for production
 const apollo = {
   introspection: !isProduction,
-  playground: !isProduction
+  playground: !isProduction,
+  cors: isProduction
 };
 
 // to enable graphql in production
