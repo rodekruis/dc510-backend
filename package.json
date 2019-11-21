@@ -9,7 +9,7 @@
     "node": ">=8.4.0"
   },
   "scripts": {
-    "dev": "knex migrate:up && keystone dev",
+    "dev": "nodemon --exec 'knex migrate:up && keystone dev'",
     "build": "keystone build",
     "start": "knex migrate:up && keystone start"
   },
@@ -32,6 +32,7 @@
     "eslint-plugin-prettier": "~3.1.1",
     "husky": "~3.1.0",
     "lint-staged": "~9.4.3",
+    "nodemon": "~2.0.0",
     "npm-check-updates": "~3.2.1",
     "prettier": "~1.19.1"
   },
