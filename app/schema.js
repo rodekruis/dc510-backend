@@ -15,13 +15,19 @@ const userIsAdmin = ({ authentication: { item: user } }) =>
   Boolean(user && user.isAdmin);
 const userOwnsItem = ({ authentication: { item: user } }) =>
   user && { id: user.id };
-const userIsAdminOrOwner = auth => {
-  const isAdmin = access.userIsAdmin(auth);
-  const isOwner = access.userOwnsItem(auth);
-  return isAdmin ? isAdmin : isOwner;
+const userIsAuthenticated = ({ authentication: { item } }) => !!item;
+const userIsAdminOrAuthenticated = auth => {
+  const isAdmin = userIsAdmin(auth);
+  const isAuthenticated = userIsAuthenticated(auth);
+  return isAdmin ? isAdmin : isAuthenticated;
 };
-const access = { userIsAdmin, userOwnsItem, userIsAdminOrOwner };
-const defaultDate = { defaultValue: () => new Date().toISOString() };
+const access = {
+  userIsAdmin,
+  userOwnsItem,
+  userIsAdminOrAuthenticated,
+  userIsAuthenticated
+};
+
 /**
  * User schema
  */
@@ -40,11 +46,10 @@ exports.User = {
     }
   },
   access: {
-    read: access.userIsAdminOrOwner,
-    update: access.userIsAdminOrOwner,
+    read: access.userIsAdminOrAuthenticated,
+    update: access.userIsAdminOrAuthenticated,
     create: access.userIsAdmin,
-    delete: access.userIsAdmin,
-    auth: true
+    delete: access.userIsAdmin
   }
 };
 
@@ -57,6 +62,12 @@ exports.ActivityType = {
     name: { type: Text, isUnique: true, isRequired: true },
     code: { type: Text, isUnique: true, isRequired: true },
     description: { type: Wysiwyg }
+  },
+  access: {
+    read: true,
+    update: access.userIsAdmin,
+    create: access.userIsAdmin,
+    delete: access.userIsAdmin
   }
 };
 
@@ -71,6 +82,12 @@ exports.ActivitySeverity = {
     // image_url: { type: AzureImage }
     // @todo write an adapter based on this
     // https://github.com/keystonejs/keystone/blob/master/packages/file-adapters/lib/cloudinary.js
+  },
+  access: {
+    read: true,
+    update: access.userIsAdmin,
+    create: access.userIsAdmin,
+    delete: access.userIsAdmin
   }
 };
 
@@ -82,6 +99,12 @@ exports.Region = {
   fields: {
     name: { type: Text, isRequired: true },
     code: { type: Text, isUnique: true, isRequired: true }
+  },
+  access: {
+    read: true,
+    update: access.userIsAdmin,
+    create: access.userIsAdmin,
+    delete: access.userIsAdmin
   }
 };
 
@@ -107,7 +130,13 @@ exports.Activity = {
       ref: 'User',
       isRequired: true
     },
-    createdAt: { type: DateTimeUtc, ...defaultDate }
+    createdAt: { type: DateTimeUtc }
+  },
+  access: {
+    read: access.userIsAuthenticated,
+    update: access.userIsAdmin,
+    create: access.userIsAdmin,
+    delete: access.userIsAdmin
   }
 };
 
@@ -117,7 +146,7 @@ exports.Activity = {
 
 exports.Recording = {
   fields: {
-    createdAt: { type: DateTimeUtc, ...defaultDate },
+    createdAt: { type: DateTimeUtc },
     location: {
       type: Location,
       isRequired: true,
@@ -140,5 +169,12 @@ exports.Recording = {
     },
     media_url: { type: Url, isRequired: true },
     complete: { type: Checkbox }
+  },
+  access: {
+    // @todo  revisit these permissions
+    read: access.userIsAuthenticated,
+    update: access.userIsAuthenticated,
+    create: access.userIsAuthenticated,
+    delete: access.userIsAuthenticated
   }
 };
