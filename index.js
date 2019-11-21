@@ -49,7 +49,8 @@ const authStrategy = keystone.createAuthStrategy({
 // disable playground for production
 const apollo = {
   introspection: true,
-  playground: true
+  playground: true,
+  cors: false
 };
 
 // to enable graphql in production
@@ -58,6 +59,11 @@ module.exports = {
   keystone,
   apps: [
     new GraphQLApp({ apollo }),
-    new AdminUIApp({ enableDefaultRoute: true, authStrategy })
+    new AdminUIApp({
+      enableDefaultRoute: true,
+      authStrategy,
+      isAccessAllowed: ({ authentication: { item: user } }) =>
+        !!user && !!user.isAdmin
+    })
   ]
 };
