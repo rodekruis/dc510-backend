@@ -38,8 +38,7 @@ exports.User = {
     email: {
       type: Text,
       isUnique: true,
-      isRequired: true,
-      access: access.userIsAuthenticated
+      isRequired: true
     },
     isAdmin: { type: Checkbox },
     password: {
@@ -47,7 +46,7 @@ exports.User = {
     }
   },
   access: {
-    read: true,
+    read: access.userIsAdminOrAuthenticated,
     update: access.userIsAdminOrAuthenticated,
     create: access.userIsAdmin,
     delete: access.userIsAdmin
