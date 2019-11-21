@@ -5,7 +5,7 @@ const {
   Region,
   Activity,
   Recording
-} = require('./app/schema');
+} = require('./schema');
 
 module.exports = async keystone => {
   // Check the users list to see if there are any; if we find none, assume

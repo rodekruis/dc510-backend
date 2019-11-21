@@ -14,7 +14,7 @@ const {
   Region,
   Activity,
   Recording
-} = require('./app/schema');
+} = require('./schema');
 
 const PROJECT_NAME = 'dc510';
 // const isProduction = process.env.NODE_ENV === 'production';
