@@ -48,9 +48,8 @@ const authStrategy = keystone.createAuthStrategy({
 
 // disable playground for production
 const apollo = {
-  introspection: !isProduction,
-  playground: !isProduction,
-  cors: isProduction
+  introspection: true,
+  playground: true
 };
 
 // to enable graphql in production
