@@ -49,7 +49,8 @@ exports.User = {
     read: access.userIsAdminOrAuthenticated,
     update: access.userIsAdminOrAuthenticated,
     create: access.userIsAdmin,
-    delete: access.userIsAdmin
+    delete: access.userIsAdmin,
+    auth: true
   }
 };
 
