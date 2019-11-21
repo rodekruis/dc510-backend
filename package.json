@@ -9,30 +9,31 @@
     "node": ">=8.4.0"
   },
   "scripts": {
-    "dev": "cross-env NODE_ENV=development DISABLE_LOGGING=true knex migrate:up && keystone dev",
+    "dev": "knex migrate:up && keystone dev",
     "build": "keystone build",
     "start": "knex migrate:up && keystone start"
   },
   "dependencies": {
-    "@keystonejs/adapter-knex": "~5.0.1",
-    "@keystonejs/app-admin-ui": "^5.0.0",
+    "@keystonejs/adapter-knex": "~5.1.0",
+    "@keystonejs/app-admin-ui": "^5.2.0",
     "@keystonejs/app-graphql": "^5.0.0",
     "@keystonejs/auth-password": "^5.0.0",
-    "@keystonejs/fields": "^5.0.0",
+    "@keystonejs/fields": "^5.2.0",
     "@keystonejs/fields-datetime-utc": "~5.0.0",
-    "@keystonejs/fields-wysiwyg-tinymce": "~5.0.0",
-    "@keystonejs/keystone": "^5.0.0",
-    "cross-env": "^5.2.0",
+    "@keystonejs/fields-wysiwyg-tinymce": "~5.0.1",
+    "@keystonejs/keystone": "^5.2.1",
+    "cross-env": "^6.0.3",
     "dotenv": "~8.2.0",
-    "husky": "~3.0.9",
-    "lint-staged": "~9.4.2"
+    "husky": "~3.1.0",
+    "lint-staged": "~9.4.3"
   },
   "devDependencies": {
     "babel-eslint": "~10.0.3",
     "eslint": "~6.6.0",
-    "eslint-config-prettier": "~6.5.0",
+    "eslint-config-prettier": "~6.7.0",
     "eslint-plugin-prettier": "~3.1.1",
-    "prettier": "~1.18.2"
+    "npm-check-updates": "~3.2.1",
+    "prettier": "~1.19.1"
   },
   "husky": {
     "hooks": {

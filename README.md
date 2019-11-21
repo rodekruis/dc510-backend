@@ -1,4 +1,6 @@
 
+## Set up
+
 ```sh
 cp .env.example .env
 # update .env file with correct values
@@ -11,3 +13,11 @@ docker-compose logs -f
 - Graphql playground: Open [localhost:3000/admin/graphiql](http://localhost:3000/admin/graphiql)
 - Graphql api: [localhost:3000/admin/graphiql](http://localhost:3000/admin/api)
 - Data science: Open [localhost:5000](http://localhost:5000) for [metabase](https://www.metabase.com/)
+
+## Dependency updates
+
+```sh
+npx ncu
+npx ncu -u
+npm i
+```
