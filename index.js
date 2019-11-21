@@ -17,14 +17,14 @@ const {
 } = require('./app/schema');
 
 const PROJECT_NAME = 'dc510';
-const isProduction = process.env.NODE_ENV === 'production';
+// const isProduction = process.env.NODE_ENV === 'production';
 
 // create keystone app
 const keystone = new Keystone({
   name: PROJECT_NAME,
   cookieSecret: process.env.COOKIE_SECRET,
   onConnect: initializeData,
-  secureCookies: isProduction,
+  secureCookies: false, // @todo enable in production
   adapter: new Adapter({
     knexOptions: {
       client: 'postgres',
