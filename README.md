@@ -1,5 +1,4 @@
-
-## Set up
+## Docker setup
 
 ```sh
 cp .env.example .env
@@ -21,3 +20,9 @@ npx ncu
 npx ncu -u
 npm i
 ```
+
+## Tech stack
+
+- Node.js
+- Postgres
+- [Keystone](https://github.com/keystonejs/keystone) ([docs](https://www.keystonejs.com/))
