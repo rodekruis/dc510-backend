@@ -7,10 +7,15 @@ const {
   Location,
   Url
 } = require('@keystonejs/fields');
+const { atTracking } = require('@keystonejs/list-plugins');
 const { Wysiwyg } = require('@keystonejs/fields-wysiwyg-tinymce');
-const { DateTimeUtc } = require('@keystonejs/fields-datetime-utc');
 
-// Access control functions
+// const date = new Date().toISOString();
+
+/**
+ * Access control
+ */
+
 const userIsAdmin = ({ authentication: { item: user } }) =>
   Boolean(user && user.isAdmin);
 const userOwnsItem = ({ authentication: { item: user } }) =>
@@ -29,7 +34,7 @@ const access = {
 };
 
 /**
- * User schema
+ * Schemas
  */
 
 exports.User = {
@@ -50,7 +55,14 @@ exports.User = {
     update: access.userIsAdminOrAuthenticated,
     create: access.userIsAdmin,
     delete: access.userIsAdmin
-  }
+  },
+  plugins: [atTracking()]
+  /* hooks: {
+    beforeChange: ({ existingItem, resolvedData }) => {
+      const now = new Date().toISOString();
+      if (!existingItem) resolvedData.createdAt = now;
+    }
+  } */
 };
 
 /**
@@ -68,7 +80,8 @@ exports.ActivityType = {
     update: access.userIsAdmin,
     create: access.userIsAdmin,
     delete: access.userIsAdmin
-  }
+  },
+  plugins: [atTracking()]
 };
 
 /**
@@ -88,7 +101,8 @@ exports.ActivitySeverity = {
     update: access.userIsAdmin,
     create: access.userIsAdmin,
     delete: access.userIsAdmin
-  }
+  },
+  plugins: [atTracking()]
 };
 
 /**
@@ -105,7 +119,8 @@ exports.Region = {
     update: access.userIsAdmin,
     create: access.userIsAdmin,
     delete: access.userIsAdmin
-  }
+  },
+  plugins: [atTracking()]
 };
 
 /**
@@ -129,15 +144,15 @@ exports.Activity = {
       type: Relationship,
       ref: 'User',
       isRequired: true
-    },
-    createdAt: { type: DateTimeUtc }
+    }
   },
   access: {
     read: access.userIsAuthenticated,
     update: access.userIsAdmin,
     create: access.userIsAdmin,
     delete: access.userIsAdmin
-  }
+  },
+  plugins: [atTracking()]
 };
 
 /**
@@ -146,7 +161,6 @@ exports.Activity = {
 
 exports.Recording = {
   fields: {
-    createdAt: { type: DateTimeUtc },
     location: {
       type: Location,
       isRequired: true,
@@ -176,5 +190,6 @@ exports.Recording = {
     update: access.userIsAuthenticated,
     create: access.userIsAuthenticated,
     delete: access.userIsAuthenticated
-  }
+  },
+  plugins: [atTracking()]
 };
