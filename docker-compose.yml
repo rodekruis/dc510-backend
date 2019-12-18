@@ -18,7 +18,7 @@ services:
       - db
 
   db:
-    image: postgres
+    image: postgres:11
     volumes:
       - ./init-user-db.sh/:/docker-entrypoint-initdb.d/init-user-db.sh
       - ./db_data:/var/lib/postgresql/data
