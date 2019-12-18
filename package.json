@@ -1,10 +1,10 @@
 {
-  "name": "@keystonejs/example-projects-starter",
-  "description": "An example KeystoneJS project with a User list and Authentication.",
+  "name": "dc510backend",
+  "description": "Data collection app for 510 rodekruis",
   "private": true,
-  "version": "5.0.0",
-  "author": "The KeystoneJS Development Team",
-  "license": "MIT",
+  "version": "1.0.0",
+  "author": "510 Rodekruis",
+  "license": "BSD",
   "engines": {
     "node": ">=8.4.0"
   },
@@ -14,27 +14,28 @@
     "start": "knex migrate:up && keystone start"
   },
   "dependencies": {
-    "@keystonejs/adapter-knex": "~5.1.0",
-    "@keystonejs/app-admin-ui": "^5.2.0",
-    "@keystonejs/app-graphql": "^5.0.0",
-    "@keystonejs/auth-password": "^5.0.0",
-    "@keystonejs/fields": "^5.2.0",
-    "@keystonejs/fields-datetime-utc": "~5.0.0",
-    "@keystonejs/fields-wysiwyg-tinymce": "~5.0.1",
-    "@keystonejs/keystone": "^5.2.1",
-    "@keystonejs/list-plugins": "~5.0.0",
+    "@keystonejs/adapter-knex": "~6.1.0",
+    "@keystonejs/app-admin-ui": "^5.5.0",
+    "@keystonejs/app-graphql": "^5.0.2",
+    "@keystonejs/auth-password": "^5.0.1",
+    "@keystonejs/fields": "^6.0.2",
+    "@keystonejs/fields-wysiwyg-tinymce": "~5.0.3",
+    "@keystonejs/keystone": "^5.3.0",
+    "@keystonejs/list-plugins": "~5.0.2",
+    "connect-session-knex": "~1.5.0",
     "cross-env": "^6.0.3",
-    "dotenv": "~8.2.0"
+    "dotenv": "~8.2.0",
+    "express-session": "~1.17.0"
   },
   "devDependencies": {
     "babel-eslint": "~10.0.3",
-    "eslint": "~6.6.0",
+    "eslint": "~6.7.2",
     "eslint-config-prettier": "~6.7.0",
-    "eslint-plugin-prettier": "~3.1.1",
+    "eslint-plugin-prettier": "~3.1.2",
     "husky": "~3.1.0",
-    "lint-staged": "~9.4.3",
-    "nodemon": "~2.0.0",
-    "npm-check-updates": "~3.2.1",
+    "lint-staged": "~9.5.0",
+    "nodemon": "~2.0.2",
+    "npm-check-updates": "~4.0.1",
     "prettier": "~1.19.1"
   },
   "husky": {
