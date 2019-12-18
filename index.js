@@ -5,6 +5,9 @@ const { PasswordAuthStrategy } = require('@keystonejs/auth-password');
 const { GraphQLApp } = require('@keystonejs/app-graphql');
 const { AdminUIApp } = require('@keystonejs/app-admin-ui');
 const { KnexAdapter: Adapter } = require('@keystonejs/adapter-knex');
+const session = require('express-session');
+const knexOptions = require('./knexfile');
+const KnexSessionStore = require('connect-session-knex')(session);
 
 const initializeData = require('./initialize-data');
 const {
@@ -24,11 +27,10 @@ const keystone = new Keystone({
   cookieSecret: process.env.COOKIE_SECRET,
   onConnect: initializeData,
   secureCookies: false, // @todo enable in production
-  adapter: new Adapter({
-    knexOptions: {
-      client: 'postgres',
-      connection: process.env.DATABASE_URL
-    }
+  adapter: new Adapter({ knexOptions }),
+  sessionStore: new KnexSessionStore({
+    knex: require('knex')(knexOptions),
+    tablename: 'user_sessions' // optional. Defaults to 'sessions'
   })
 });
 
