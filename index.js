@@ -17,7 +17,6 @@ const {
 } = require('./schema');
 
 const PROJECT_NAME = 'dc510';
-// const isProduction = process.env.NODE_ENV === 'production';
 
 // create keystone app
 const keystone = new Keystone({
@@ -46,15 +45,13 @@ const authStrategy = keystone.createAuthStrategy({
   list: 'User'
 });
 
-// disable playground for production
+// @todo disable playground for production
 const apollo = {
   introspection: true,
   playground: true,
   cors: false
 };
 
-// to enable graphql in production
-// https://www.apollographql.com/docs/apollo-server/testing/graphql-playground/#enabling-graphql-playground-in-production
 module.exports = {
   keystone,
   apps: [
