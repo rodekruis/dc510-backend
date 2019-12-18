@@ -21,6 +21,12 @@ npx ncu -u
 npm i
 ```
 
+Installing dependencies within the docker container
+
+```sh
+docker-compose exec api npm i
+```
+
 ## Tech stack
 
 - Node.js
