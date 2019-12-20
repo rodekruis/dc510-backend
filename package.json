@@ -9,7 +9,7 @@
     "node": ">=8.4.0"
   },
   "scripts": {
-    "dev": "nodemon --exec 'knex migrate:up && keystone dev'",
+    "dev": "nodemon --exec 'knex migrate:latest && keystone dev'",
     "build": "keystone build",
     "start": "knex migrate:up && keystone start"
   },
