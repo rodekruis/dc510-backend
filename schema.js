@@ -111,7 +111,8 @@ exports.Task = {
       type: Relationship,
       ref: 'User',
       isRequired: true
-    }
+    },
+    completed: { type: Checkbox }
   },
   access: {
     read: access.userIsAuthenticated,
@@ -139,8 +140,7 @@ exports.Observation = {
       isRequired: true
     },
     lat: { type: Float },
-    lng: { type: Float },
-    complete: { type: Checkbox }
+    lng: { type: Float }
   },
   access: {
     read: access.userIsAuthenticated,
