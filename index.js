@@ -4,22 +4,17 @@ const { Keystone } = require('@keystonejs/keystone');
 const { PasswordAuthStrategy } = require('@keystonejs/auth-password');
 const { GraphQLApp } = require('@keystonejs/app-graphql');
 const { AdminUIApp } = require('@keystonejs/app-admin-ui');
-const { KnexAdapter: Adapter } = require('@keystonejs/adapter-knex');
+const { KnexAdapter } = require('@keystonejs/adapter-knex');
 const session = require('express-session');
 const knexOptions = require('./knexfile');
 const KnexSessionStore = require('connect-session-knex')(session);
 
-const initializeData = require('./initialize-data');
-const {
-  User,
-  ActivityType,
-  ActivitySeverity,
-  Region,
-  Activity,
-  Recording
-} = require('./schema');
+const { User, ActivityType, Severity, Task, Observation } = require('./schema');
+const initializeData = require('./initial-data');
 
 const PROJECT_NAME = 'dc510';
+const isProduction = process.env.NODE_ENV === 'production';
+const dropDatabase = !isProduction && process.env.RECREATE_DATABASE;
 
 // create keystone app
 const keystone = new Keystone({
@@ -27,7 +22,7 @@ const keystone = new Keystone({
   cookieSecret: process.env.COOKIE_SECRET,
   onConnect: initializeData,
   secureCookies: false, // @todo enable in production
-  adapter: new Adapter({ knexOptions }),
+  adapter: new KnexAdapter({ knexOptions, dropDatabase }),
   sessionStore: new KnexSessionStore({
     knex: require('knex')(knexOptions),
     tablename: 'user_sessions' // optional. Defaults to 'sessions'
@@ -37,10 +32,9 @@ const keystone = new Keystone({
 // create our app entities / data structure
 keystone.createList('User', User);
 keystone.createList('ActivityType', ActivityType);
-keystone.createList('ActivitySeverity', ActivitySeverity);
-keystone.createList('Region', Region);
-keystone.createList('Activity', Activity);
-keystone.createList('Recording', Recording);
+keystone.createList('Severity', Severity);
+keystone.createList('Task', Task);
+keystone.createList('Observation', Observation);
 
 const authStrategy = keystone.createAuthStrategy({
   type: PasswordAuthStrategy,
