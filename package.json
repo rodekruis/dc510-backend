@@ -25,7 +25,8 @@
     "connect-session-knex": "~1.5.0",
     "cross-env": "^6.0.3",
     "dotenv": "~8.2.0",
-    "express-session": "~1.17.0"
+    "express-session": "~1.17.0",
+    "graphql": "~14.5.8"
   },
   "devDependencies": {
     "babel-eslint": "~10.0.3",

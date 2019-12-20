@@ -1,6 +1,7 @@
 const {
   Integer,
   Text,
+  Virtual,
   Float,
   Checkbox,
   Password,
@@ -9,6 +10,7 @@ const {
 } = require('@keystonejs/fields');
 const { atTracking, byTracking } = require('@keystonejs/list-plugins');
 const { Wysiwyg } = require('@keystonejs/fields-wysiwyg-tinymce');
+const { graphql } = require('graphql');
 
 /**
  * Access control
@@ -112,7 +114,25 @@ exports.Task = {
       ref: 'User',
       isRequired: true
     },
-    completed: { type: Checkbox }
+    completed: { type: Checkbox },
+    // Display observations count using virtual fields
+    // https://www.keystonejs.com/keystonejs/fields/src/types/virtual/
+    observations: {
+      type: Virtual,
+      graphQLReturnType: 'Int',
+      resolver: async (item, args, ctx, { schema }) => {
+        const query = `
+          query ($taskId: ID!) {
+            _allObservationsMeta(where: { task: { id: $taskId } }) {
+              count
+            }
+          }
+        `;
+        const variables = { taskId: item.id };
+        const { data } = await graphql(schema, query, null, ctx, variables);
+        return data._allObservationsMeta.count;
+      }
+    }
   },
   access: {
     read: access.userIsAuthenticated,
@@ -120,7 +140,10 @@ exports.Task = {
     create: access.userIsAdmin,
     delete: access.userIsAdmin
   },
-  plugins: [atTracking(), byTracking()]
+  plugins: [atTracking(), byTracking()],
+  adminConfig: {
+    defaultColumns: 'name, observations'
+  }
 };
 
 /**
