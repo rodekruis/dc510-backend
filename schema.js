@@ -101,6 +101,7 @@ exports.Severity = {
 exports.Task = {
   fields: {
     name: { type: Text, isRequired: true },
+    description: { type: Wysiwyg },
     type: {
       type: Relationship,
       ref: 'ActivityType',
