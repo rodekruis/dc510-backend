@@ -4,6 +4,7 @@ services:
   api:
     build:
       context: .
+      dockerfile: ./docker/Dockerfile
     volumes:
       - .:/app
       - /app/node_modules
@@ -20,7 +21,7 @@ services:
   db:
     image: postgres:11
     volumes:
-      - ./init-user-db.sh/:/docker-entrypoint-initdb.d/init-user-db.sh
+      - ./docker/init-user-db.sh/:/docker-entrypoint-initdb.d/init-user-db.sh
       - ./db_data:/var/lib/postgresql/data
     ports:
       - 5432:5432

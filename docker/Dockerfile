@@ -8,7 +8,7 @@ RUN apk add --no-cache build-base python2 bash yarn && \
   chmod +x dumb-init
 RUN yarn install
 
-COPY ./wait-for-it.sh /usr/local
+COPY ./docker/wait-for-it.sh /usr/local
 RUN chmod +x /usr/local/wait-for-it.sh
 
 EXPOSE 3000
