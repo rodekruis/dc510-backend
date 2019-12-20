@@ -7,10 +7,8 @@ const {
   Location,
   Url
 } = require('@keystonejs/fields');
-const { atTracking } = require('@keystonejs/list-plugins');
+const { atTracking, byTracking } = require('@keystonejs/list-plugins');
 const { Wysiwyg } = require('@keystonejs/fields-wysiwyg-tinymce');
-
-// const date = new Date().toISOString();
 
 /**
  * Access control
@@ -56,13 +54,7 @@ exports.User = {
     create: access.userIsAdmin,
     delete: access.userIsAdmin
   },
-  plugins: [atTracking()]
-  /* hooks: {
-    beforeChange: ({ existingItem, resolvedData }) => {
-      const now = new Date().toISOString();
-      if (!existingItem) resolvedData.createdAt = now;
-    }
-  } */
+  plugins: [atTracking(), byTracking()]
 };
 
 /**
@@ -81,20 +73,17 @@ exports.ActivityType = {
     create: access.userIsAdmin,
     delete: access.userIsAdmin
   },
-  plugins: [atTracking()]
+  plugins: [atTracking(), byTracking()]
 };
 
 /**
- * Activity severity
+ * Serverity
  */
 
-exports.ActivitySeverity = {
+exports.Severity = {
   fields: {
     name: { type: Text, isRequired: true },
     code: { type: Integer, isRequired: true }
-    // image_url: { type: AzureImage }
-    // @todo write an adapter based on this
-    // https://github.com/keystonejs/keystone/blob/master/packages/file-adapters/lib/cloudinary.js
   },
   access: {
     read: true,
@@ -102,42 +91,19 @@ exports.ActivitySeverity = {
     create: access.userIsAdmin,
     delete: access.userIsAdmin
   },
-  plugins: [atTracking()]
+  plugins: [atTracking(), byTracking()]
 };
 
 /**
- * Region
+ * Tasks
  */
 
-exports.Region = {
-  fields: {
-    name: { type: Text, isRequired: true },
-    code: { type: Text, isUnique: true, isRequired: true }
-  },
-  access: {
-    read: true,
-    update: access.userIsAdmin,
-    create: access.userIsAdmin,
-    delete: access.userIsAdmin
-  },
-  plugins: [atTracking()]
-};
-
-/**
- * Activities
- */
-
-exports.Activity = {
+exports.Task = {
   fields: {
     name: { type: Text, isRequired: true },
     type: {
       type: Relationship,
       ref: 'ActivityType',
-      isRequired: true
-    },
-    region: {
-      type: Relationship,
-      ref: 'Region',
       isRequired: true
     },
     assignee: {
@@ -152,33 +118,28 @@ exports.Activity = {
     create: access.userIsAdmin,
     delete: access.userIsAdmin
   },
-  plugins: [atTracking()]
+  plugins: [atTracking(), byTracking()]
 };
 
 /**
- * Recordings
+ * Observations
  */
 
-exports.Recording = {
+exports.Observation = {
   fields: {
     location: {
       type: Location,
       isRequired: true,
       googleMapsKey: process.env.GOOGLE_MAPS_KEY
     },
-    activity: {
+    task: {
       type: Relationship,
-      ref: 'Activity',
+      ref: 'Task',
       isRequired: true
     },
     severity: {
       type: Relationship,
-      ref: 'ActivitySeverity',
-      isRequired: true
-    },
-    user: {
-      type: Relationship,
-      ref: 'User',
+      ref: 'Severity',
       isRequired: true
     },
     media_url: { type: Url, isRequired: true },
@@ -191,5 +152,5 @@ exports.Recording = {
     create: access.userIsAuthenticated,
     delete: access.userIsAuthenticated
   },
-  plugins: [atTracking()]
+  plugins: [atTracking(), byTracking()]
 };
