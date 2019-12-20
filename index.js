@@ -9,7 +9,14 @@ const session = require('express-session');
 const knexOptions = require('./knexfile');
 const KnexSessionStore = require('connect-session-knex')(session);
 
-const { User, ActivityType, Severity, Task, Observation } = require('./schema');
+const {
+  User,
+  ActivityType,
+  Severity,
+  Task,
+  Observation,
+  MediaItem
+} = require('./schema');
 
 const PROJECT_NAME = 'dc510';
 // const isProduction = process.env.NODE_ENV === 'production';
@@ -35,6 +42,7 @@ keystone.createList('ActivityType', ActivityType);
 keystone.createList('Severity', Severity);
 keystone.createList('Task', Task);
 keystone.createList('Observation', Observation);
+keystone.createList('MediaItem', MediaItem);
 
 const authStrategy = keystone.createAuthStrategy({
   type: PasswordAuthStrategy,

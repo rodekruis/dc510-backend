@@ -1,10 +1,10 @@
 const {
   Integer,
   Text,
+  Float,
   Checkbox,
   Password,
   Relationship,
-  Location,
   Url
 } = require('@keystonejs/fields');
 const { atTracking, byTracking } = require('@keystonejs/list-plugins');
@@ -128,11 +128,6 @@ exports.Task = {
 
 exports.Observation = {
   fields: {
-    location: {
-      type: Location,
-      isRequired: true,
-      googleMapsKey: process.env.GOOGLE_MAPS_KEY
-    },
     task: {
       type: Relationship,
       ref: 'Task',
@@ -143,15 +138,37 @@ exports.Observation = {
       ref: 'Severity',
       isRequired: true
     },
-    media_url: { type: Url, isRequired: true },
+    lat: { type: Float },
+    lng: { type: Float },
     complete: { type: Checkbox }
   },
   access: {
-    // @todo  revisit these permissions
     read: access.userIsAuthenticated,
     update: access.userIsAuthenticated,
     create: access.userIsAuthenticated,
     delete: access.userIsAuthenticated
+  },
+  plugins: [atTracking(), byTracking()]
+};
+
+/**
+ * Media
+ */
+
+exports.MediaItem = {
+  fields: {
+    observation: {
+      type: Relationship,
+      ref: 'Observation',
+      isRequired: true
+    },
+    url: { type: Url, isRequired: true }
+  },
+  access: {
+    read: access.userIsAuthenticated,
+    update: access.userIsAdmin,
+    create: access.userIsAuthenticated,
+    delete: access.userIsAdmin
   },
   plugins: [atTracking(), byTracking()]
 };

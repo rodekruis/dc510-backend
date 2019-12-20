@@ -19,7 +19,8 @@ const initialData = {
     { name: 'Severe', code: 4 }
   ],
   Observation: [],
-  Task: []
+  Task: [],
+  MediaItem: []
 };
 
 module.exports = async keystone => {
