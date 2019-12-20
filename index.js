@@ -10,19 +10,19 @@ const knexOptions = require('./knexfile');
 const KnexSessionStore = require('connect-session-knex')(session);
 
 const { User, ActivityType, Severity, Task, Observation } = require('./schema');
-const initializeData = require('./initial-data');
 
 const PROJECT_NAME = 'dc510';
-const isProduction = process.env.NODE_ENV === 'production';
-const dropDatabase = !isProduction && process.env.RECREATE_DATABASE;
+// const isProduction = process.env.NODE_ENV === 'production';
+// const initializeData = require('./initial-data');
+// const dropDatabase = !isProduction && process.env.RECREATE_DATABASE;
 
 // create keystone app
 const keystone = new Keystone({
   name: PROJECT_NAME,
   cookieSecret: process.env.COOKIE_SECRET,
-  onConnect: initializeData,
+  // onConnect: initializeData,
   secureCookies: false, // @todo enable in production
-  adapter: new KnexAdapter({ knexOptions, dropDatabase }),
+  adapter: new KnexAdapter({ knexOptions /* dropDatabase */ }),
   sessionStore: new KnexSessionStore({
     knex: require('knex')(knexOptions),
     tablename: 'user_sessions' // optional. Defaults to 'sessions'
