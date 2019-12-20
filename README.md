@@ -24,7 +24,7 @@ npm i
 Installing dependencies within the docker container
 
 ```sh
-docker-compose exec api npm i
+docker-compose exec yarn install
 ```
 
 ## Tech stack
