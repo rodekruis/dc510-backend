@@ -1,6 +1,7 @@
 const {
   Integer,
   Text,
+  DateTime,
   Virtual,
   Float,
   Checkbox,
@@ -33,6 +34,9 @@ const access = {
   userIsAuthenticated
 };
 
+const dateFormat = { format: 'DD/MM/YYYY h:mm A' };
+const plugins = [atTracking(dateFormat), byTracking()];
+
 /**
  * Schemas
  */
@@ -56,7 +60,7 @@ exports.User = {
     create: access.userIsAdmin,
     delete: access.userIsAdmin
   },
-  plugins: [atTracking(), byTracking()],
+  plugins,
   adminConfig: {
     defaultColumns: 'name, email, createdAt'
   }
@@ -78,7 +82,7 @@ exports.ActivityType = {
     create: access.userIsAdmin,
     delete: access.userIsAdmin
   },
-  plugins: [atTracking(), byTracking()],
+  plugins,
   adminConfig: {
     defaultColumns: 'name, code, updatedBy, updatedAt'
   }
@@ -99,7 +103,7 @@ exports.Severity = {
     create: access.userIsAdmin,
     delete: access.userIsAdmin
   },
-  plugins: [atTracking(), byTracking()],
+  plugins,
   adminConfig: {
     defaultColumns: 'name, code, updatedBy, updatedAt'
   }
@@ -149,7 +153,7 @@ exports.Task = {
     create: access.userIsAdmin,
     delete: access.userIsAdmin
   },
-  plugins: [atTracking(), byTracking()],
+  plugins,
   adminConfig: {
     defaultColumns:
       'name, observations, completed, assignee, updatedBy, updatedAt'
@@ -172,8 +176,13 @@ exports.Observation = {
       ref: 'Severity',
       isRequired: true
     },
+    recordedAt: { type: DateTime, isRequired: true, ...dateFormat },
+    // lat, lng values when the media was taken
     lat: { type: Float },
-    lng: { type: Float }
+    lng: { type: Float },
+    // lat, lng of the location pointed on the map
+    marked_lat: { type: Float },
+    marked_lng: { type: Float }
   },
   labelResolver: item => `Observation ${item.id}`,
   access: {
@@ -182,15 +191,11 @@ exports.Observation = {
     create: access.userIsAuthenticated,
     delete: access.userIsAuthenticated
   },
-  plugins: [atTracking(), byTracking()],
+  plugins,
   adminConfig: {
     defaultColumns: 'task, severity, createdBy, createdAt'
   }
 };
-
-/**
- * Media
- */
 
 exports.MediaItem = {
   fields: {
@@ -199,7 +204,7 @@ exports.MediaItem = {
       ref: 'Observation',
       isRequired: true
     },
-    url: { type: Url, isRequired: true }
+    url: { type: Url }
   },
   labelResolver: item => `Media ${item.id}`,
   access: {
@@ -208,7 +213,7 @@ exports.MediaItem = {
     create: access.userIsAuthenticated,
     delete: access.userIsAdmin
   },
-  plugins: [atTracking(), byTracking()],
+  plugins,
   adminConfig: {
     defaultColumns: 'observation, url, createdBy, createdAt'
   }
