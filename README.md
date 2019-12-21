@@ -2,7 +2,7 @@
 
 ```sh
 cp .env.example .env
-# update .env file with correct values
+# You must update .env file with proper values
 docker-compose up -d
 docker-compose logs -f
 ```
