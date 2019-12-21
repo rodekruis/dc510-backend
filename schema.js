@@ -56,7 +56,10 @@ exports.User = {
     create: access.userIsAdmin,
     delete: access.userIsAdmin
   },
-  plugins: [atTracking(), byTracking()]
+  plugins: [atTracking(), byTracking()],
+  adminConfig: {
+    defaultColumns: 'name, email, createdAt'
+  }
 };
 
 /**
@@ -75,7 +78,10 @@ exports.ActivityType = {
     create: access.userIsAdmin,
     delete: access.userIsAdmin
   },
-  plugins: [atTracking(), byTracking()]
+  plugins: [atTracking(), byTracking()],
+  adminConfig: {
+    defaultColumns: 'name, code, updatedBy, updatedAt'
+  }
 };
 
 /**
@@ -93,7 +99,10 @@ exports.Severity = {
     create: access.userIsAdmin,
     delete: access.userIsAdmin
   },
-  plugins: [atTracking(), byTracking()]
+  plugins: [atTracking(), byTracking()],
+  adminConfig: {
+    defaultColumns: 'name, code, updatedBy, updatedAt'
+  }
 };
 
 /**
@@ -142,7 +151,7 @@ exports.Task = {
   },
   plugins: [atTracking(), byTracking()],
   adminConfig: {
-    defaultColumns: 'name, observations'
+    defaultColumns: 'name, observations, completed, updatedBy, updatedAt'
   }
 };
 
@@ -165,13 +174,17 @@ exports.Observation = {
     lat: { type: Float },
     lng: { type: Float }
   },
+  labelResolver: item => `Observation ${item.id}`,
   access: {
     read: access.userIsAuthenticated,
     update: access.userIsAuthenticated,
     create: access.userIsAuthenticated,
     delete: access.userIsAuthenticated
   },
-  plugins: [atTracking(), byTracking()]
+  plugins: [atTracking(), byTracking()],
+  adminConfig: {
+    defaultColumns: 'task, severity, createdBy, createdAt'
+  }
 };
 
 /**
@@ -187,11 +200,15 @@ exports.MediaItem = {
     },
     url: { type: Url, isRequired: true }
   },
+  labelResolver: item => `Media ${item.id}`,
   access: {
     read: access.userIsAuthenticated,
     update: access.userIsAdmin,
     create: access.userIsAuthenticated,
     delete: access.userIsAdmin
   },
-  plugins: [atTracking(), byTracking()]
+  plugins: [atTracking(), byTracking()],
+  adminConfig: {
+    defaultColumns: 'observation, url, createdBy, createdAt'
+  }
 };
