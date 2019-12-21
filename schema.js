@@ -155,8 +155,7 @@ exports.Task = {
   },
   plugins,
   adminConfig: {
-    defaultColumns:
-      'name, observations, completed, assignee, updatedBy, updatedAt'
+    defaultColumns: 'name, observations, completed, assignee, updatedAt'
   }
 };
 
@@ -176,7 +175,11 @@ exports.Observation = {
       ref: 'Severity',
       isRequired: true
     },
-    recordedAt: { type: DateTime, isRequired: true, ...dateFormat },
+    recordedAt: {
+      type: DateTime,
+      isRequired: true,
+      ...dateFormat
+    },
     // lat, lng values when the media was taken
     lat: { type: Float },
     lng: { type: Float },
