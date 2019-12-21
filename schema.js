@@ -151,7 +151,8 @@ exports.Task = {
   },
   plugins: [atTracking(), byTracking()],
   adminConfig: {
-    defaultColumns: 'name, observations, completed, updatedBy, updatedAt'
+    defaultColumns:
+      'name, observations, completed, assignee, updatedBy, updatedAt'
   }
 };
 
