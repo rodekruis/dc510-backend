@@ -12,7 +12,7 @@
   "scripts": {
     "dev": "nodemon --exec 'knex migrate:latest && keystone dev'",
     "build": "keystone build",
-    "start": "knex migrate:up && keystone start"
+    "start": "knex migrate:latest && keystone start"
   },
   "dependencies": {
     "@keystonejs/adapter-knex": "~6.0.0",
