@@ -185,7 +185,8 @@ exports.Observation = {
     lng: { type: Float },
     // lat, lng of the location pointed on the map
     marked_lat: { type: Float },
-    marked_lng: { type: Float }
+    marked_lng: { type: Float },
+    image_urls: { type: Relationship, ref: 'MediaItem', many: true }
   },
   labelResolver: item => `Observation ${item.id}`,
   access: {
@@ -202,11 +203,6 @@ exports.Observation = {
 
 exports.MediaItem = {
   fields: {
-    observation: {
-      type: Relationship,
-      ref: 'Observation',
-      isRequired: true
-    },
     url: { type: Url }
   },
   labelResolver: item => `Media ${item.id}`,
@@ -218,6 +214,6 @@ exports.MediaItem = {
   },
   plugins,
   adminConfig: {
-    defaultColumns: 'observation, url, createdBy, createdAt'
+    defaultColumns: 'url, createdBy, createdAt'
   }
 };
