@@ -1,4 +1,4 @@
-const express = require('express');
+// const express = require('express');
 const multer = require('multer');
 const MulterAzureStorage = require('multer-azure-blob-storage')
   .MulterAzureStorage;
@@ -24,17 +24,13 @@ const upload = multer({
   storage: azureStorage
 });
 
-class AzureUploader {
-  prepareMiddleware(/* { keystone, dev, distDir  } */) {
-    const app = express();
+function AzureUploader(app) {
+  app.post('/api/upload', upload.single('image'), (req, res) => {
+    console.log(req.file.url);
+    res.status(200).send(req.file.url);
+  });
 
-    app.post('/api/upload', upload.single('image'), (req, res) => {
-      console.log(req.file.url);
-      res.status(200).send(req.file.url);
-    });
-
-    return app;
-  }
+  return app;
 }
 
 module.exports = AzureUploader;

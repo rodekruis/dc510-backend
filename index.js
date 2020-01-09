@@ -66,7 +66,7 @@ module.exports = {
       authStrategy,
       isAccessAllowed: ({ authentication: { item: user } }) =>
         !!user && !!user.isAdmin
-    }),
-    new AzureUploader()
-  ]
+    })
+  ],
+  configureExpress: AzureUploader
 };
