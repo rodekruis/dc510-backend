@@ -8,6 +8,7 @@ const { KnexAdapter } = require('@keystonejs/adapter-knex');
 const session = require('express-session');
 const knexOptions = require('./knexfile');
 const KnexSessionStore = require('connect-session-knex')(session);
+const AzureUploader = require('./uploader');
 
 const {
   User,
@@ -65,6 +66,7 @@ module.exports = {
       authStrategy,
       isAccessAllowed: ({ authentication: { item: user } }) =>
         !!user && !!user.isAdmin
-    })
+    }),
+    new AzureUploader()
   ]
 };
