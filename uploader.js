@@ -1,4 +1,3 @@
-// const express = require('express');
 const multer = require('multer');
 const MulterAzureStorage = require('multer-azure-blob-storage')
   .MulterAzureStorage;
