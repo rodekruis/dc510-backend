@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@keystonejs/adapter-knex": "~6.0.0",
-    "@keystonejs/app-admin-ui": "^5.5.1",
+    "@keystonejs/app-admin-ui": "^5.6.0",
     "@keystonejs/app-graphql": "^5.0.2",
     "@keystonejs/auth-password": "^5.0.1",
     "@keystonejs/fields": "~6.0.0",
