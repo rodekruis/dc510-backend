@@ -62,7 +62,8 @@ exports.User = {
   },
   plugins,
   adminConfig: {
-    defaultColumns: 'name, email, createdAt'
+    defaultColumns: 'name, email, createdAt',
+    defaultSort: 'createdAt'
   }
 };
 
@@ -155,7 +156,8 @@ exports.Task = {
   },
   plugins,
   adminConfig: {
-    defaultColumns: 'name, observations, completed, assignee, updatedAt'
+    defaultColumns: 'name, observations, completed, assignee, updatedAt',
+    defaultSort: 'createdAt'
   }
 };
 
@@ -197,7 +199,8 @@ exports.Observation = {
   },
   plugins,
   adminConfig: {
-    defaultColumns: 'task, severity, createdBy, createdAt'
+    defaultColumns: 'task, severity, createdBy, createdAt',
+    defaultSort: 'createdAt'
   }
 };
 
@@ -214,6 +217,7 @@ exports.MediaItem = {
   },
   plugins,
   adminConfig: {
-    defaultColumns: 'url, createdBy, createdAt'
+    defaultColumns: 'url, createdBy, createdAt',
+    defaultSort: 'createdAt'
   }
 };
