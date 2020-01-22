@@ -62,7 +62,7 @@ module.exports = {
   apps: [
     new GraphQLApp({ apollo }),
     new AdminUIApp({
-      enableDefaultRoute: true,
+      enableDefaultRoute: false,
       authStrategy,
       isAccessAllowed: ({ authentication: { item: user } }) =>
         !!user && !!user.isAdmin
